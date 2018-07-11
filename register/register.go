@@ -10,7 +10,6 @@ import (
 
 	"github.com/maki5/authboss"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 )
 
 // Pages
