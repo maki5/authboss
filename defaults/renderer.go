@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 // There is a separate package that does HTML Rendering authboss-renderer

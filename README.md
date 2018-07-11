@@ -43,9 +43,9 @@
 
 # Authboss
 
-[![GoDoc](https://godoc.org/github.com/volatiletech/authboss?status.svg)](https://godoc.org/github.com/volatiletech/authboss)
-[![Build Status](https://circleci.com/gh/volatiletech/authboss.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/volatiletech/authboss)
-[![Coverage Status](https://coveralls.io/repos/volatiletech/authboss/badge.svg?branch=master)](https://coveralls.io/r/volatiletech/authboss?branch=master)
+[![GoDoc](https://godoc.org/github.com/maki5/authboss?status.svg)](https://godoc.org/github.com/maki5/authboss)
+[![Build Status](https://circleci.com/gh/maki5/authboss.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/maki5/authboss)
+[![Coverage Status](https://coveralls.io/repos/maki5/authboss/badge.svg?branch=master)](https://coveralls.io/r/maki5/authboss?branch=master)
 [![Mail](https://img.shields.io/badge/mail%20list-authboss-lightgrey.svg)](https://groups.google.com/a/volatile.tech/forum/#!forum/authboss)
 
 Authboss is a modular authentication system for the web.
@@ -85,7 +85,7 @@ Of course the standard practice of fetching the library is just the beginning:
 ```bash
 # Get the latest, keep in mind you should be vendoring with dep or using vgo at this point
 # To ensure versions don't get messed up underneath you
-go get -u github.com/volatiletech/authboss
+go get -u github.com/maki5/authboss
 ```
 
 Here's a bit of starter code that was stolen from the sample.
@@ -100,7 +100,7 @@ ab.Config.Storage.CookieState = myCookieImplementation
 ab.Config.Paths.Mount = "/authboss"
 ab.Config.Paths.RootURL = "https://www.example.com/"
 
-// This is using the renderer from: github.com/volatiletech/authboss
+// This is using the renderer from: github.com/maki5/authboss
 ab.Config.Core.ViewRenderer = abrenderer.New("/auth")
 // Probably want a MailRenderer here too.
 
@@ -121,7 +121,7 @@ mux.Mount("/authboss", http.StripPrefix("/authboss", ab.Config.Core.Router))
 For a more in-depth look you **definitely should** look at the authboss sample to see what a full 
 implementation looks like. This will probably help you more than any of this documentation.
 
-[https://github.com/volatiletech/authboss-sample](https://github.com/volatiletech/authboss-sample)
+[https://github.com/maki5/authboss-sample](https://github.com/maki5/authboss-sample)
 
 ## App Requirements
 
@@ -161,7 +161,7 @@ There are some required configuration variables that have no sane defaults:
 ### Storage and Core implementations
 
 Everything under Config.Storage and Config.Core are required. however you can optionally use default
-implementations from the [defaults package](https://github.com/volatiletech/authboss/defaults).
+implementations from the [defaults package](https://github.com/maki5/authboss/defaults).
 This also provides an easy way to share implementations of certain stack pieces (like HTML Form Parsing).
 As you see in the example above these can be easily initialized with the `SetCore` method in that
 package.
@@ -190,11 +190,11 @@ and the MailRenderer. For more information please see the use case [Rendering Vi
 
 ### ServerStorer implementation
 
-The [ServerStorer](https://godoc.org//github.com/volatiletech/authboss/#ServerStorer) is
+The [ServerStorer](https://godoc.org//github.com/maki5/authboss/#ServerStorer) is
 meant to be upgraded to add capabilities depending on what modules you'd like to use.
 It starts out by only knowing how to save and load users, but the `remember` module as an example
 needs to be able to find users by remember me tokens, so it upgrades to a
-[RememberingServerStorer](https://godoc.org/github.com/volatiletech/authboss/#RememberingServerStorer)
+[RememberingServerStorer](https://godoc.org/github.com/maki5/authboss/#RememberingServerStorer)
 which adds these abilities.
 
 Your `ServerStorer` implementation does not need to implement all these additional interfaces
@@ -203,7 +203,7 @@ unless you're using a module that requires it. See the [Use Cases](#use-cases) d
 ### User implementation
 
 Users in Authboss are represented by the
-[User interface](https://godoc.org//github.com/volatiletech/authboss/#User). The user
+[User interface](https://godoc.org//github.com/maki5/authboss/#User). The user
 interface is a flexible notion, because it can be upgraded to suit the needs of the various modules.
 
 Initially the User must only be able to Get/Set a `PID` or primary identifier. This allows the authboss
@@ -213,7 +213,7 @@ to save/retrieve users.
 As mentioned, it can be upgraded, for example suppose now we want to use the `confirm` module,
 in that case the e-mail address now becomes a requirement. So the `confirm` module will attempt
 to upgrade the user (and panic if it fails) to a
-[ConfirmableUser](https://godoc.org//github.com/volatiletech/authboss/#ConfirmableUser)
+[ConfirmableUser](https://godoc.org//github.com/maki5/authboss/#ConfirmableUser)
 which supports retrieving and setting of confirm tokens, e-mail addresses, and a confirmed state.
 
 Your `User` implementation does not need to implement all these additional user interfaces unless you're
@@ -222,9 +222,9 @@ requirements are.
 
 ### Values implementation
 
-The [BodyReader](https://godoc.org//github.com/volatiletech/authboss/#BodyReader)
+The [BodyReader](https://godoc.org//github.com/maki5/authboss/#BodyReader)
 interface in the Config returns
-[Validator](https://godoc.org//github.com/volatiletech/authboss/#Validator) implementations
+[Validator](https://godoc.org//github.com/maki5/authboss/#Validator) implementations
 which can be validated. But much like the storer and user it can be upgraded to add different
 capabilities.
 
@@ -242,7 +242,7 @@ The config struct is an important part of Authboss. It's the key to making Authb
 want with the implementations you want. Please look at it's code definition as you read the
 documentation below, it will make much more sense.
 
-[Config Struct Documentation](https://godoc.org/github.com/volatiletech/authboss/#Config)
+[Config Struct Documentation](https://godoc.org/github.com/maki5/authboss/#Config)
 
 ### Paths
 
@@ -272,7 +272,7 @@ These are the implementations of the HTTP stack for your app. How do responses r
 they redirected? How are errors handled?
 
 For most of these there are default implementations implementations from the
-[defaults package](https://github.com/volatiletech/authboss/defaults) available, but not for all.
+[defaults package](https://github.com/maki5/authboss/defaults) available, but not for all.
 See the package documentation for more information about what's available.
 
 # Available Modules
@@ -283,15 +283,15 @@ to view the supported use cases as well as how to use them in your app.
 
 Name     | Import Path                               | Description
 ---------|-------------------------------------------|------------
-Auth     | github.com/volatiletech/authboss/auth     | Database password authentication for users.
-Confirm  | github.com/volatiletech/authboss/confirm  | Prevents login before e-mail verification.
-Expire   | github.com/volatiletech/authboss/expire   | Expires a user's login
-Lock     | github.com/volatiletech/authboss/lock     | Locks user accounts after authentication failures.
-Logout   | github.com/volatiletech/authboss/logout   | Destroys user sessions for auth/oauth2.
-OAuth2   | github.com/volatiletech/authboss/oauth2   | Provides oauth2 authentication for users.
-Recover  | github.com/volatiletech/authboss/recover  | Allows for password resets via e-mail.
-Register | github.com/volatiletech/authboss/register | User-initiated account creation.
-Remember | github.com/volatiletech/authboss/remember | Persisting login sessions past session cookie expiry.
+Auth     | github.com/maki5/authboss/auth     | Database password authentication for users.
+Confirm  | github.com/maki5/authboss/confirm  | Prevents login before e-mail verification.
+Expire   | github.com/maki5/authboss/expire   | Expires a user's login
+Lock     | github.com/maki5/authboss/lock     | Locks user accounts after authentication failures.
+Logout   | github.com/maki5/authboss/logout   | Destroys user sessions for auth/oauth2.
+OAuth2   | github.com/maki5/authboss/oauth2   | Provides oauth2 authentication for users.
+Recover  | github.com/maki5/authboss/recover  | Allows for password resets via e-mail.
+Register | github.com/maki5/authboss/register | User-initiated account creation.
+Remember | github.com/maki5/authboss/remember | Persisting login sessions past session cookie expiry.
 
 # Middlewares
 
@@ -308,12 +308,12 @@ use the middlewares if you use the module.
 
 Name | Requirement | Description
 ---- | ----------- | -----------
-[LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware) | **Required** | Enables cookie and session handling
-[ModuleListMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.ModuleListMiddleware) | Optional | Inserts a loaded module list into the view data
-[confirm.Middleware](https://godoc.org/github.com/volatiletech/authboss/confirm/#Middleware) | Recommended with confirm | Ensures users are confirmed or rejects request
-[expire.Middleware](https://godoc.org/github.com/volatiletech/authboss/expire/#Middleware) | **Required** with expire | Expires user sessions after an inactive period
-[lock.Middleware](https://godoc.org/github.com/volatiletech/authboss/lock/#Middleware) | Recommended with lock | Rejects requests from locked users
-[remember.Middleware](https://godoc.org/github.com/volatiletech/authboss/remember/#Middleware) | Recommended with remember | Logs a user in from a remember cookie
+[LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware) | **Required** | Enables cookie and session handling
+[ModuleListMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.ModuleListMiddleware) | Optional | Inserts a loaded module list into the view data
+[confirm.Middleware](https://godoc.org/github.com/maki5/authboss/confirm/#Middleware) | Recommended with confirm | Ensures users are confirmed or rejects request
+[expire.Middleware](https://godoc.org/github.com/maki5/authboss/expire/#Middleware) | **Required** with expire | Expires user sessions after an inactive period
+[lock.Middleware](https://godoc.org/github.com/maki5/authboss/lock/#Middleware) | Recommended with lock | Rejects requests from locked users
+[remember.Middleware](https://godoc.org/github.com/maki5/authboss/remember/#Middleware) | Recommended with remember | Logs a user in from a remember cookie
 
 
 # Use Cases
@@ -321,12 +321,12 @@ Name | Requirement | Description
 ## Get Current User
 
 CurrentUser can be retrieved by calling
-[Authboss.CurrentUser](https://godoc.org/github.com/volatiletech/authboss/#Authboss.CurrentUser)
+[Authboss.CurrentUser](https://godoc.org/github.com/maki5/authboss/#Authboss.CurrentUser)
 but a pre-requisite is that
-[Authboss.LoadClientState](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientState)
+[Authboss.LoadClientState](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientState)
 has been called first to load the client state into the request context.
 This is typically achieved by using the
-[Authboss.LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware), but can
+[Authboss.LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware), but can
 be done manually as well.
 
 ## Reset Password
@@ -338,14 +338,14 @@ Updating a user's password is non-trivial for several reasons:
 1. Optionally the user should be logged out (**not taken care of by UpdatePassword**)
 
 In order to do this, we can use the
-[Authboss.UpdatePassword](https://godoc.org/github.com/volatiletech/authboss/#Authboss.UpdatePassword)
+[Authboss.UpdatePassword](https://godoc.org/github.com/maki5/authboss/#Authboss.UpdatePassword)
 method. This ensures the above facets are taken care of.
 
 If it's also desirable to have the user logged out, please use the following methods to erase
 all known sessions and cookies from the user.
 
-* [authboss.DelKnownSession](https://godoc.org//github.com/volatiletech/authboss/#DelKnownSession)
-* [authboss.DelKnownCookie](https://godoc.org//github.com/volatiletech/authboss/#DelKnownCookie)
+* [authboss.DelKnownSession](https://godoc.org//github.com/maki5/authboss/#DelKnownSession)
+* [authboss.DelKnownCookie](https://godoc.org//github.com/maki5/authboss/#DelKnownCookie)
 
 ## User Auth via Password
 
@@ -355,11 +355,11 @@ Module        | auth
 Pages         | login
 Routes        | /login
 Emails        | _None_
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware)
 ClientStorage | Session and Cookie
-ServerStorer  | [ServerStorer](https://godoc.org/github.com/volatiletech/authboss/#ServerStorer)
-User          | [AuthableUser](https://godoc.org/github.com/volatiletech/authboss/#AuthableUser)
-Values        | [UserValuer](https://godoc.org/github.com/volatiletech/authboss/#UserValuer)
+ServerStorer  | [ServerStorer](https://godoc.org/github.com/maki5/authboss/#ServerStorer)
+User          | [AuthableUser](https://godoc.org/github.com/maki5/authboss/#AuthableUser)
+Values        | [UserValuer](https://godoc.org/github.com/maki5/authboss/#UserValuer)
 Mailer        | _None_
 
 To enable this side-effect import the auth module, and ensure that the requirements above are met.
@@ -373,10 +373,10 @@ Module        | oauth2
 Pages         | _None_
 Routes        | /oauth2/{provider}, /oauth2/callback/{provider}
 Emails        | _None_
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware)
 ClientStorage | Session
-ServerStorer  | [OAuth2ServerStorer](https://godoc.org/github.com/volatiletech/authboss/#OAuth2ServerStorer)
-User          | [OAuth2User](https://godoc.org/github.com/volatiletech/authboss/#OAuth2User)
+ServerStorer  | [OAuth2ServerStorer](https://godoc.org/github.com/maki5/authboss/#OAuth2ServerStorer)
+User          | [OAuth2User](https://godoc.org/github.com/maki5/authboss/#OAuth2User)
 Values        | _None_
 Mailer        | _None_
 
@@ -390,9 +390,9 @@ These parameters are returned in `map[string]string` form and passed into the `O
 
 Please see the following documentation for more details:
 
-* [Package docs for oauth2](https://godoc.org//github.com/volatiletech/authboss/oauth2/)
-* [authboss.OAuth2Provider](https://godoc.org//github.com/volatiletech/authboss/#OAuth2Provider)
-* [authboss.OAuth2ServerStorer](https://godoc.org//github.com/volatiletech/authboss/#OAuth2ServerStorer)
+* [Package docs for oauth2](https://godoc.org//github.com/maki5/authboss/oauth2/)
+* [authboss.OAuth2Provider](https://godoc.org//github.com/maki5/authboss/#OAuth2Provider)
+* [authboss.OAuth2ServerStorer](https://godoc.org//github.com/maki5/authboss/#OAuth2ServerStorer)
 
 ## User Registration
 
@@ -402,11 +402,11 @@ Module        | register
 Pages         | register
 Routes        | /register
 Emails        | _None_
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware)
 ClientStorage | Session
-ServerStorer  | [CreatingServerStorer](https://godoc.org/github.com/volatiletech/authboss/#CreatingServerStorer)
-User          | [AuthableUser](https://godoc.org/github.com/volatiletech/authboss/#AuthableUser), optionally [ArbitraryUser](https://godoc.org/github.com/volatiletech/authboss/#ArbitraryUser)
-Values        | [UserValuer](https://godoc.org/github.com/volatiletech/authboss/#UserValuer), optionally also [ArbitraryValuer](https://godoc.org/github.com/volatiletech/authboss/#ArbitraryValuer)
+ServerStorer  | [CreatingServerStorer](https://godoc.org/github.com/maki5/authboss/#CreatingServerStorer)
+User          | [AuthableUser](https://godoc.org/github.com/maki5/authboss/#AuthableUser), optionally [ArbitraryUser](https://godoc.org/github.com/maki5/authboss/#ArbitraryUser)
+Values        | [UserValuer](https://godoc.org/github.com/maki5/authboss/#UserValuer), optionally also [ArbitraryValuer](https://godoc.org/github.com/maki5/authboss/#ArbitraryValuer)
 Mailer        | _None_
 
 Users can self-register for a service using this module. You may optionally want them to confirm
@@ -435,11 +435,11 @@ Module        | confirm
 Pages         | confirm
 Routes        | /confirm
 Emails        | confirm_html, confirm_txt
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware), [confirm.Middleware](https://godoc.org/github.com/volatiletech/authboss/confirm/#Middleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware), [confirm.Middleware](https://godoc.org/github.com/maki5/authboss/confirm/#Middleware)
 ClientStorage | Session
-ServerStorer  | [ConfirmingServerStorer](https://godoc.org/github.com/volatiletech/authboss/#ConfirmingServerStorer)
-User          | [ConfirmableUser](https://godoc.org/github.com/volatiletech/authboss/#ConfirmableUser)
-Values        | [ConfirmValuer](https://godoc.org/github.com/volatiletech/authboss/#ConfirmValuer)
+ServerStorer  | [ConfirmingServerStorer](https://godoc.org/github.com/maki5/authboss/#ConfirmingServerStorer)
+User          | [ConfirmableUser](https://godoc.org/github.com/maki5/authboss/#ConfirmableUser)
+Values        | [ConfirmValuer](https://godoc.org/github.com/maki5/authboss/#ConfirmValuer)
 Mailer        | Required
 
 Confirming registrations via e-mail can be done with this module (whether or not done via the register
@@ -461,11 +461,11 @@ Module        | recover
 Pages         | recover_start, recover_middle (not used for renders, only values), recover_end
 Routes        | /recover, /recover/end
 Emails        | recover_html, recover_txt
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware)
 ClientStorage | Session
-ServerStorer  | [RecoveringServerStorer](https://godoc.org/github.com/volatiletech/authboss/#RecoveringServerStorer)
-User          | [RecoverableUser](https://godoc.org/github.com/volatiletech/authboss/#RecoverableUser)
-Values        | [RecoverStartValuer](https://godoc.org/github.com/volatiletech/authboss/#RecoverStartValuer), [RecoverMiddleValuer](https://godoc.org/github.com/volatiletech/authboss/#RecoverMiddleValuer), [RecoverEndValuer](https://godoc.org/github.com/volatiletech/authboss/#RecoverEndValuer)
+ServerStorer  | [RecoveringServerStorer](https://godoc.org/github.com/maki5/authboss/#RecoveringServerStorer)
+User          | [RecoverableUser](https://godoc.org/github.com/maki5/authboss/#RecoverableUser)
+Values        | [RecoverStartValuer](https://godoc.org/github.com/maki5/authboss/#RecoverStartValuer), [RecoverMiddleValuer](https://godoc.org/github.com/maki5/authboss/#RecoverMiddleValuer), [RecoverEndValuer](https://godoc.org/github.com/maki5/authboss/#RecoverEndValuer)
 Mailer        | Required
 
 The flow for password recovery is that the user is initially shown a page that wants their `PID` to
@@ -491,11 +491,11 @@ Pages         | _None_
 Routes        | _None_
 Emails        | _None_
 Middlewares   | LoadClientStateMiddleware,
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware), [remember.Middleware](https://godoc.org/github.com/volatiletech/authboss/remember/#Middleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware), [remember.Middleware](https://godoc.org/github.com/maki5/authboss/remember/#Middleware)
 ClientStorage | Session, Cookies
-ServerStorer  | [RememberingServerStorer](https://godoc.org/github.com/volatiletech/authboss/#RememberingServerStorer)
+ServerStorer  | [RememberingServerStorer](https://godoc.org/github.com/maki5/authboss/#RememberingServerStorer)
 User          | User
-Values        | [RememberValuer](https://godoc.org/github.com/volatiletech/authboss/#RememberValuer) (not a Validator)
+Values        | [RememberValuer](https://godoc.org/github.com/maki5/authboss/#RememberValuer) (not a Validator)
 Mailer        | _None_
 
 Remember uses cookie storage to log in users without a session via the `remember.Middleware`.
@@ -520,10 +520,10 @@ Module        | lock
 Pages         | _None_
 Routes        | _None_
 Emails        | _None_
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware), [lock.Middleware](https://godoc.org/github.com/volatiletech/authboss/lock/#Middleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware), [lock.Middleware](https://godoc.org/github.com/maki5/authboss/lock/#Middleware)
 ClientStorage | Session
-ServerStorer  | [ServerStorer](https://godoc.org/github.com/volatiletech/authboss/#ServerStorer)
-User          | [LockableUser](https://godoc.org/github.com/volatiletech/authboss/#LockableUser)
+ServerStorer  | [ServerStorer](https://godoc.org/github.com/maki5/authboss/#ServerStorer)
+User          | [LockableUser](https://godoc.org/github.com/maki5/authboss/#LockableUser)
 Values        | _None_
 Mailer        | _None_
 
@@ -541,10 +541,10 @@ Module        | expire
 Pages         | _None_
 Routes        | _None_
 Emails        | _None_
-Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/volatiletech/authboss/#Authboss.LoadClientStateMiddleware), [expire.Middleware](https://godoc.org/github.com/volatiletech/authboss/expire/#Middleware)
+Middlewares   | [LoadClientStateMiddleware](https://godoc.org/github.com/maki5/authboss/#Authboss.LoadClientStateMiddleware), [expire.Middleware](https://godoc.org/github.com/maki5/authboss/expire/#Middleware)
 ClientStorage | Session
 ServerStorer  | _None_
-User          | [User](https://godoc.org/github.com/volatiletech/authboss/#User)
+User          | [User](https://godoc.org/github.com/maki5/authboss/#User)
 Values        | _None_
 Mailer        | _None_
 
@@ -557,7 +557,7 @@ request context.
 
 ## Rendering Views
 
-The authboss rendering system is simple. It's defined by one interface: [Renderer](https://godoc.org/github.com/volatiletech/authboss/#Renderer)
+The authboss rendering system is simple. It's defined by one interface: [Renderer](https://godoc.org/github.com/maki5/authboss/#Renderer)
 
 The renderer knows how to load templates, and how to render them with some data and that's it.
 So let's examine the most common view types that you might want to use.
@@ -569,24 +569,24 @@ this becomes a small wrapper on top of your rendering setup. For example if you'
 then you could just use `template.New()` inside the `Load()` method and store that somewhere and
 call `template.Execute()` in the `Render()` method.
 
-There is also a very basic renderer: [Authboss Renderer](https://github.com/volatiletech/authboss-renderer) which has some very ugly built in views
+There is also a very basic renderer: [Authboss Renderer](https://github.com/maki5/authboss-renderer) which has some very ugly built in views
 and the ability to override them with your own if you don't want to integrate your own rendering
 system into that interface.
 
 ### JSON Views
 
 If you're building an API that's mostly backed by a javascript front-end, then you'll probably
-want to use a renderer that returns JSON. There is a simple json renderer available in the [defaults package](https://github.com/volatiletech/authboss/defaults) package if you wish to use that.
+want to use a renderer that returns JSON. There is a simple json renderer available in the [defaults package](https://github.com/maki5/authboss/defaults) package if you wish to use that.
 
 ### Data
 
 The most important part about this interface is the data that you have to render.
 There are several keys that are used throughout authboss that you'll want to render in your views.
 
-They're in the file [html_data.go](https://github.com/volatiletech/authboss/blob/master/html_data.go)
+They're in the file [html_data.go](https://github.com/maki5/authboss/blob/master/html_data.go)
 and are constants prefixed with `Data`. See the documentation in that file for more information on
 which keys exist and what they contain.
 
-The default [responder](https://godoc.org/github.com/volatiletech/authboss/defaults/#Responder)
+The default [responder](https://godoc.org/github.com/maki5/authboss/defaults/#Responder)
 also happens to collect data from the Request context, and hence this is a great place to inject
 data you'd like to render (for example data for your html layout, or csrf tokens).

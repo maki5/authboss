@@ -8,7 +8,7 @@ import (
 	"regexp"
 
 	"github.com/pkg/errors"
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 // FormValue types

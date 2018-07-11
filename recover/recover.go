@@ -16,7 +16,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 // Constants for templates etc.

@@ -45,7 +45,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 // FormValue constants

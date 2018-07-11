@@ -3,7 +3,7 @@ package defaults
 import (
 	"net/http"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 const (

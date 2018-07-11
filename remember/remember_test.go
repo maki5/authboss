@@ -9,8 +9,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/volatiletech/authboss"
-	"github.com/volatiletech/authboss/internal/mocks"
+	"github.com/maki5/authboss"
+	"authboss/internal/mocks"
 )
 
 func TestInit(t *testing.T) {

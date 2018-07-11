@@ -8,8 +8,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/pkg/errors"
-	"github.com/volatiletech/authboss"
-	"github.com/volatiletech/authboss/internal/mocks"
+	"github.com/maki5/authboss"
+	"authboss/internal/mocks"
 )
 
 func TestRegisterInit(t *testing.T) {

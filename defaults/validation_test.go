@@ -3,7 +3,7 @@ package defaults
 import (
 	"testing"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 func TestValidate(t *testing.T) {

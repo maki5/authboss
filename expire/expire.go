@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/volatiletech/authboss"
+	"github.com/maki5/authboss"
 )
 
 var nowTime = time.Now
