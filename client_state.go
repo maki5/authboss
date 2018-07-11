@@ -274,7 +274,7 @@ func delState(w http.ResponseWriter, CTXKey contextKey, key string) {
 }
 
 func setState(w http.ResponseWriter, ctxKey contextKey, op ClientStateEventKind, key, val string) {
-	csrw := MustClientStateResponseWriter(w)
+	//csrw := MustClientStateResponseWriter(w)
 	ev := ClientStateEvent{
 		Kind: op,
 		Key:  key,
@@ -284,12 +284,12 @@ func setState(w http.ResponseWriter, ctxKey contextKey, op ClientStateEventKind,
 		ev.Value = val
 	}
 
-	switch ctxKey {
-	case CTXKeySessionState:
-		csrw.sessionStateEvents = append(csrw.sessionStateEvents, ev)
-	case CTXKeyCookieState:
-		csrw.cookieStateEvents = append(csrw.cookieStateEvents, ev)
-	}
+	//switch ctxKey {
+	//case CTXKeySessionState:
+	//	csrw.sessionStateEvents = append(csrw.sessionStateEvents, ev)
+	//case CTXKeyCookieState:
+	//	csrw.cookieStateEvents = append(csrw.cookieStateEvents, ev)
+	//}
 }
 
 func getState(r *http.Request, ctxKey contextKey, key string) (string, bool) {
