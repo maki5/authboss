@@ -7,9 +7,9 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/pkg/errors"
-	"github.com/maki5/authboss"
 	"authboss/internal/mocks"
+	"github.com/maki5/authboss"
+	"github.com/pkg/errors"
 )
 
 func TestRegisterInit(t *testing.T) {

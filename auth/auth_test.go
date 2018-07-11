@@ -5,8 +5,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/maki5/authboss"
 	"authboss/internal/mocks"
+	"github.com/maki5/authboss"
 )
 
 func TestAuthInit(t *testing.T) {

@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/maki5/authboss"
 	"authboss/internal/mocks"
+	"github.com/maki5/authboss"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/facebook"
 	"golang.org/x/oauth2/google"

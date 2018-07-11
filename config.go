@@ -8,7 +8,8 @@ import (
 
 // Config holds all the configuration for both authboss and it's modules.
 type Config struct {
-	Paths struct {
+	JwtSecret string
+	Paths     struct {
 		// Mount is the path to mount authboss's routes at (eg /auth).
 		Mount string
 

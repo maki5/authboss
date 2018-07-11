@@ -10,8 +10,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/maki5/authboss"
+	"github.com/pkg/errors"
 )
 
 // NewSMTPMailer creates an SMTP Mailer to send emails with.

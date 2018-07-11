@@ -8,8 +8,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/maki5/authboss"
 	"authboss/internal/mocks"
+	"github.com/maki5/authboss"
 )
 
 type testRenderer struct {

@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/maki5/authboss"
 	"authboss/internal/mocks"
+	"github.com/maki5/authboss"
 )
 
 func TestInit(t *testing.T) {

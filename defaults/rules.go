@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"unicode"
 
-	"github.com/pkg/errors"
 	"github.com/maki5/authboss"
+	"github.com/pkg/errors"
 )
 
 var blankRegex = regexp.MustCompile(`^\s*$`)

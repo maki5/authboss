@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/maki5/authboss"
+	"github.com/pkg/errors"
 )
 
 // User represents all possible fields a authboss User may have
