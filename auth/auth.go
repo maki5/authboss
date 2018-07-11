@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
-
 	"github.com/maki5/authboss"
+
 )
 
 const (
@@ -95,6 +95,9 @@ func (a *Auth) LoginPost(w http.ResponseWriter, r *http.Request) error {
 	} else if handled {
 		return nil
 	}
+
+
+	w.Header().Set("token", authboss.NewJWTToken(pid))
 
 	logger.Infof("user %s logged in", pid)
 	authboss.PutSession(w, authboss.SessionKey, pid)

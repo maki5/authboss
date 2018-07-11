@@ -10,6 +10,7 @@ import (
 
 	"github.com/maki5/authboss"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 )
 
 // Pages
@@ -105,6 +106,7 @@ func (r *Register) Post(w http.ResponseWriter, req *http.Request) error {
 	}
 
 	err = storer.Create(req.Context(), user)
+	
 	switch {
 	case err == authboss.ErrUserFound:
 		logger.Infof("user %s attempted to re-register", pid)
@@ -131,6 +133,7 @@ func (r *Register) Post(w http.ResponseWriter, req *http.Request) error {
 	// Log the user in, but only if the response wasn't handled previously by a module
 	// like confirm.
 	authboss.PutSession(w, authboss.SessionKey, pid)
+	w.Header().Set("token", authboss.NewJWTToken(pid))
 
 	logger.Infof("registered and logged in user %s", pid)
 	ro := authboss.RedirectOptions{
